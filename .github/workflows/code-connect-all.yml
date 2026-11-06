@@ -1,0 +1,17 @@
+name: Code Connect publish (all)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Publish all Code Connect templates
+        env:
+          FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+        run: npx --yes @figma/code-connect@latest connect publish --token "$FIGMA_ACCESS_TOKEN"
